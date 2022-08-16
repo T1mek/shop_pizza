@@ -11,7 +11,7 @@ function App() {
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
+        
           <div className="content__top">
             <Routes>
             <Route path="/" element={<HomePage/>}/>
@@ -19,7 +19,7 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
             </Routes>
           </div>
-        </div>
+        
       </div>
     </div>
   );
