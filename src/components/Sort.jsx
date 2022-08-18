@@ -1,15 +1,19 @@
 import React from "react";
 
-const Sort = () => {
+const Sort = ({ setSelection, selection }) => {
   const [openCategories, setOpenCategories] = React.useState(false);
-  const [selection, setSelection] = React.useState(0);
-  const list = ["популярности", "цене", "алфавиту"];
 
+  const list = [
+    { name: "популярность", sort: "rating" },
+    { name: "цене", sort: "price" },
+    { name: "алфавиту", sort: "title" },
+  ];
 
-  const onClickSort = (i)=>{
-    setSelection(i)
-    setOpenCategories(false)
-  }
+  const onClickSort = (i) => {
+    setSelection(i);
+    setOpenCategories(false);
+  };
+  
 
   return (
     <div className="sort">
@@ -28,7 +32,7 @@ const Sort = () => {
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setOpenCategories(!openCategories)}>
-          {list[selection]}
+          {selection.name}
         </span>
       </div>
       {openCategories && (
@@ -37,10 +41,10 @@ const Sort = () => {
             {list.map((obj, i) => (
               <li
                 key={i}
-                onClick={() => onClickSort(i)}
-                className={selection === i ? "active" : ""}
+                onClick={() => onClickSort(obj)}
+                className={selection.sort === obj.sort ? "active" : ""}
               >
-                {obj}
+                {obj.name}
               </li>
             ))}
           </ul>

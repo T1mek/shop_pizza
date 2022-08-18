@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Categories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Categories = ({setActiveIndex,activeIndex}) => {
+  
   const categories = [
     "Все",
     "Мясные",
