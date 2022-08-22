@@ -1,0 +1,32 @@
+.root {
+  li {
+    display: inline-block;
+
+    a {
+      display: inline-block;
+
+      height: 45px;
+      background-color: #fff;
+      width: 45px;
+      border-radius: 32px;
+      border: 1px solid #fe5f1e;
+      text-align: center;
+      padding-top: 10px;
+      cursor: pointer;
+      margin-right: 10px;
+      color: #fe5f1e;
+      &:hover {
+        background-color: #fe5f1e;
+        color: white;
+      }
+    }
+  }
+  :global {
+    a {
+      &:focus {
+        background-color: #fe5f1e;
+        color: white;
+      }
+    }
+  }
+}

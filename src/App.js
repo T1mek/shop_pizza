@@ -7,14 +7,18 @@ import BasketPage from "./pages/BasketPage";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const [searchValue,setSearchValue]=React.useState("")
+
+
+  
   return (
     <div className="wrapper">
-      <Header />
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="content">
         
           <div className="content__top">
             <Routes>
-            <Route path="/" element={<HomePage/>}/>
+            <Route path="/" element={<HomePage searchValue={searchValue}/>}/>
             <Route path="/basket" element={<BasketPage/>}/>
             <Route path="*" element={<NotFound/>}/>
             </Routes>
