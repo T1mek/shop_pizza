@@ -1,19 +1,22 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSort } from "../redux/slices/filterSlice";
 
-const Sort = ({ setSelection, selection }) => {
+const list = [
+  { name: "популярность", sortProperty: "rating" },
+  { name: "цене", sortProperty: "price" },
+  { name: "алфавиту", sortProperty: "title" },
+];
+
+const Sort = () => {
   const [openCategories, setOpenCategories] = React.useState(false);
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
 
-  const list = [
-    { name: "популярность", sort: "rating" },
-    { name: "цене", sort: "price" },
-    { name: "алфавиту", sort: "title" },
-  ];
-
-  const onClickSort = (i) => {
-    setSelection(i);
+  const onClickSort = (obj) => {
+    dispatch(setSort(obj));
     setOpenCategories(false);
   };
-  
 
   return (
     <div className="sort">
@@ -32,7 +35,7 @@ const Sort = ({ setSelection, selection }) => {
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setOpenCategories(!openCategories)}>
-          {selection.name}
+          {sort.name}
         </span>
       </div>
       {openCategories && (
@@ -42,7 +45,9 @@ const Sort = ({ setSelection, selection }) => {
               <li
                 key={i}
                 onClick={() => onClickSort(obj)}
-                className={selection.sort === obj.sort ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
               >
                 {obj.name}
               </li>

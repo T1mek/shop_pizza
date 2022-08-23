@@ -1,8 +1,12 @@
 import React from "react";
 import style from "./Search.module.scss";
 import lupa from "../../assets/img/search.png";
+import {SearchContext} from '../../App'
+const Search = () => {
 
-const Search = ({ setSearchValue, searchValue }) => {
+
+const {searchValue,setSearchValue}=React.useContext(SearchContext)
+
   return (
     <div className={style.root}>
       <img className={style.item} src={lupa} alt="Search" />
