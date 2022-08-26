@@ -65,7 +65,7 @@ const HomePage = () => {
               })
               .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
-      <Pagination onChangePage={setPageCount} />
+      <Pagination onChangePage={onClickPage} />
     </div>
   );
 };
