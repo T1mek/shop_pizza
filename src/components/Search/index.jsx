@@ -1,24 +1,45 @@
 import React from "react";
 import style from "./Search.module.scss";
 import lupa from "../../assets/img/search.png";
-import {SearchContext} from '../../App'
+import { SearchContext } from "../../App";
+import debounce from "lodash.debounce";
+
 const Search = () => {
+  const [value, setValue] = React.useState("");
+  const inputRef = React.useRef();
+  const {  setSearchValue } = React.useContext(SearchContext);
 
+  const onClickClear = () => {
+    setSearchValue("");
+    setValue("")
+    inputRef.current.focus();
+  };
 
-const {searchValue,setSearchValue}=React.useContext(SearchContext)
+  
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str)
+    },250),
+    [],
+  );
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
 
   return (
     <div className={style.root}>
       <img className={style.item} src={lupa} alt="Search" />
       <input
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={style.input}
         placeholder="Поиск пиццы..."
       />
-      {searchValue && (
+      {value && (
         <svg
-          onClick={() => setSearchValue("")}
+          onClick={onClickClear}
           className={style.close}
           height="12px"
           id="Layer_1"
