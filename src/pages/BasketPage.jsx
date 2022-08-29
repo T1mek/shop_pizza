@@ -4,7 +4,14 @@ import {Link} from "react-router-dom"
 
 
 const BasketPage = () => {
+
+
+
+  
   return (
+
+
+
     <div className="container" >
       <div class="cart">
         <div class="cart__top">
