@@ -7,41 +7,49 @@ import Pagination from "../components/Pagination/index";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import { SearchContext } from "../App";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId,setPageCount } from "../redux/slices/filterSlice";
+import { setCategoryId, setPageCount } from "../redux/slices/filterSlice";
 
 const HomePage = () => {
+  
   const categoryId = useSelector((state) => state.filter.categoryId);
   const dispatch = useDispatch();
   const selection = useSelector((state) => state.filter.sort.sortProperty);
-  const pageCount= useSelector((state)=> state.filter.pageCount)
+  const pageCount = useSelector((state) => state.filter.pageCount);
 
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [currentPage, setCurrentPage] = React.useState(1);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
-  const onClickPage = (number)=>{
-    dispatch(setPageCount(number))
-  }
+  const onClickPage = (number) => {
+    dispatch(setPageCount(number));
+  };
 
   React.useEffect(() => {
-    setIsLoading(true);
+    const fetchPizzas = async () => {
+      try {
+        setIsLoading(true);
 
-    axios
-      .get(
-        `https://62c5602fa361f72512824193.mockapi.io/pizza?page=${pageCount}&limit=4&
-  }sortBy=${selection}${searchValue ? `&search${searchValue}` : ""}&order=desc`
-      )
-      .then((res) => {
+        const res = await axios.get(
+          `https://62c5602fa361f72512824193.mockapi.io/pizza?page=${pageCount}&limit=4&
+        }sortBy=${selection}${
+            searchValue ? `&search${searchValue}` : ""
+          }&order=desc`
+        );
         setItems(res.data);
-        setIsLoading(false);
-      });
 
-    window.scroll(0, 0);
-  }, [categoryId, selection,searchValue, pageCount]);
+        window.scroll(0, 0);
+      } catch (error) {
+        alert("Ошибка при получение пицц");
+        console.log(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPizzas();
+  }, [categoryId, selection, searchValue, pageCount]);
 
   return (
     <div className="container">
