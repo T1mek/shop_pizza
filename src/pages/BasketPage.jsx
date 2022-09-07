@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import { clearCart } from "../redux/slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
+import { selectCard } from "../redux/slices/cartSlice";
 
 const BasketPage = () => {
   
   const dispatch = useDispatch()
 
-  const {totalPrice,items} = useSelector((state) => state.cart)
+  const {totalPrice,items} = useSelector(selectCard)
   const totalCount = items.reduce((sum, item) => (sum + item.count), 0);
   
   const onRemoveAll =  () =>{
@@ -109,7 +110,7 @@ const BasketPage = () => {
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              Всего пицц: <b>{}</b>
+              Всего пицц: <b>{totalCount}</b>
             </span>
             <span>
               Сумма заказа: <b>{totalPrice} ₽</b>

@@ -5,11 +5,12 @@ import {createSlice} from "@reduxjs/toolkit";
 const filterSlice = createSlice({
   name: "filter",
   initialState: {
+    searchValue: '',
     categoryId: 0,
     pageCount: 1,
     sort: {
       name: "популярность",
-      sort: "rating",
+      sortProperty: "rating",
     },
   },
   reducers: {
@@ -22,8 +23,12 @@ const filterSlice = createSlice({
       setPageCount(state, action) {
         state.pageCount = action.payload
       },
+      setSearchValue(state,action){
+        state.searchValue= action.payload
+      }
   },
 });
+export const selectSort = (state)=> state.filter
 
-export const { setCategoryId,setSort,setPageCount } = filterSlice.actions;
+export const { setCategoryId,setSort,setPageCount,setSearchValue } = filterSlice.actions;
 export default filterSlice.reducer;

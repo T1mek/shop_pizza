@@ -1,16 +1,17 @@
 import React from "react";
 import style from "./Search.module.scss";
 import lupa from "../../assets/img/search.png";
-import { SearchContext } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash.debounce";
+import { setSearchValue } from "../../redux/slices/filterSlice";
 
 const Search = () => {
   const [value, setValue] = React.useState("");
   const inputRef = React.useRef();
-  const {  setSearchValue } = React.useContext(SearchContext);
+  const dispatch = useDispatch() 
 
   const onClickClear = () => {
-    setSearchValue("");
+    dispatch(setSearchValue(''));
     setValue("")
     inputRef.current.focus();
   };
@@ -18,7 +19,7 @@ const Search = () => {
   
   const updateSearchValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str)
+      dispatch(setSearchValue(str))
     },250),
     [],
   );
