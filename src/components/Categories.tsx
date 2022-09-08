@@ -1,6 +1,12 @@
 import React from "react";
 
-const Categories = ({setActiveIndex,activeIndex}) => {
+
+type ICategories={
+  setActiveIndex:any,
+  activeIndex: number,
+}
+
+const Categories:React.FC<ICategories> = ({setActiveIndex,activeIndex}) => {
   
   const categories = [
     "Все",

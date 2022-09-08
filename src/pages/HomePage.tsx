@@ -7,22 +7,25 @@ import Pagination from "../components/Pagination/index";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId, setPageCount } from "../redux/slices/filterSlice";
+import {
+  setCategoryId,
+  setPageCount,
+  selectSort,
+} from "../redux/slices/filterSlice";
 
-import { getPizza } from "../redux/slices/pizzaslice";
+import { getPizza,pizzaAll } from "../redux/slices/pizzaslice";
+import { Link } from "react-router-dom";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const dispatch = useDispatch();
-  const { categoryId, sort, searchValue } = useSelector(
-    (state) => state.filter
-  );
-  const pageCount = useSelector((state) => state.filter.pageCount);
-  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, searchValue,pageCount } = useSelector(selectSort);
+  
+  const { items, status } = useSelector(pizzaAll);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onClickPage = (number) => {
+  const onClickPage = (number: number) => {
     dispatch(setPageCount(number));
   };
 
@@ -33,19 +36,22 @@ const HomePage = () => {
       const category = categoryId > 0 ? `category=${categoryId}` : "";
       const search = searchValue ? `&search=${searchValue}` : "";
 
-      dispatch(getPizza({ pageCount, category, sortBy, search }));
+      dispatch(
+        //@ts-ignore
+        getPizza({ pageCount, category, sortBy, search })
+      );
 
       window.scroll(0, 0);
     };
     fetchPizzas();
-  }, [categoryId, sort, searchValue, pageCount]);
+  }, [categoryId, sort, searchValue, pageCount, dispatch]);
 
   return (
     <div className="container">
       <div className="content__top">
         <Categories
           activeIndex={categoryId}
-          setActiveIndex={(id) => onClickCategory(id)}
+          setActiveIndex={(id: number) => onClickCategory(id)}
         />
         <Sort />
       </div>
@@ -64,12 +70,16 @@ const HomePage = () => {
           [...new Array(4)].map((_, index) => <Skeleton key={index} />)
         ) : (
           items
-            .filter((obj) => {
+            .filter((obj: any) => {
               if (obj.title.toLowerCase().includes(searchValue.toLowerCase()))
                 return true;
               return false;
             })
-            .map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            .map((obj: any) => (
+              <Link to={`/pizza/${obj.id}`} key={obj.id}>
+                <PizzaBlock {...obj} />
+              </Link>
+            ))
         )}
       </div>
       <Pagination onChangePage={onClickPage} />

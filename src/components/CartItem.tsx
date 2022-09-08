@@ -1,9 +1,19 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import { addItem, minusItem,removeItem } from "../redux/slices/cartSlice";
+import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
-const CartItem = ({ id, title, type, imageUrl, count, price,size }) => {
+type ICartItem = {
+  id: string;
+  title: string;
+  type: string;
+  imageUrl: string;
+  count: number;
+  price: number;
+  size: number;
+};
+
+const CartItem:React.FC <ICartItem> = ({ id, title, type, imageUrl, count, price, size }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
@@ -16,10 +26,11 @@ const CartItem = ({ id, title, type, imageUrl, count, price,size }) => {
   const onClickMinus = () => {
     dispatch(minusItem(id));
   };
-  const onClickRemove = () =>{
-   if(window.confirm("Вы действительно хотите удалить товар?")){
-   dispatch(removeItem(id))}
-  }
+  const onClickRemove = () => {
+    if (window.confirm("Вы действительно хотите удалить товар?")) {
+      dispatch(removeItem(id));
+    }
+  };
 
   return (
     <div className="cart__item">
@@ -28,7 +39,9 @@ const CartItem = ({ id, title, type, imageUrl, count, price,size }) => {
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
-        <p>{type}, {size} см.</p>
+        <p>
+          {type}, {size} см.
+        </p>
       </div>
       <div className="cart__item-count">
         <div

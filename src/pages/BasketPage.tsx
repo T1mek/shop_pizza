@@ -6,12 +6,15 @@ import { clearCart } from "../redux/slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
 import { selectCard } from "../redux/slices/cartSlice";
 
-const BasketPage = () => {
+
+
+
+const BasketPage:React.FC = () => {
   
   const dispatch = useDispatch()
 
   const {totalPrice,items} = useSelector(selectCard)
-  const totalCount = items.reduce((sum, item) => (sum + item.count), 0);
+  const totalCount = items.reduce((sum:number, item:any) => (sum + item.count), 0);
   
   const onRemoveAll =  () =>{
     dispatch(clearCart())
@@ -102,7 +105,7 @@ const BasketPage = () => {
           </div>
         </div>
         <div className="content__items" style={{display:"block"}}>
-        {items.map((item)=>(
+        {items.map((item:any)=>(
           <CartItem key={item.id} {...item} />
         ))}
          

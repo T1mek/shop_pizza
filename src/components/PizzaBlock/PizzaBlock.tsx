@@ -4,8 +4,11 @@ import { addItem } from "../../redux/slices/cartSlice";
 import { selectCartById } from "../../redux/slices/cartSlice";
 
 
+import IPizza from "../../@types/types";
 
-const PizzaBlock = ({ imageUrl, price, title, id, sizes, types }) => {
+
+
+const PizzaBlock:React.FC<IPizza> = ({ imageUrl, price, title, id, sizes, types }) => {
   const typeNames = ["тонкое", "традиционные"];
 const dispatch = useDispatch()
 

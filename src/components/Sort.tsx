@@ -4,7 +4,14 @@ import { setSort } from "../redux/slices/filterSlice";
 
 import { selectSort } from "../redux/slices/filterSlice";
 
-const list = [
+type IList ={
+  name:string,
+  sortProperty: string,
+}
+
+
+
+const list:IList[] = [
   { name: "популярность", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
@@ -14,15 +21,15 @@ const Sort = () => {
   const [openCategories, setOpenCategories] = React.useState(false);
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickSort = (obj) => {
+  const onClickSort = (obj:IList) => {
     dispatch(setSort(obj));
     setOpenCategories(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutSide = (event) => {
+    const handleClickOutSide = (event:any) => {
       if (!event.path.includes(sortRef.current)) {
         setOpenCategories(false);
       }
