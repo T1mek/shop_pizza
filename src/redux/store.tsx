@@ -3,7 +3,10 @@ import filter from "./slices/filterSlice";
 import cart from "./slices/cartSlice";
 import pizza from "./slices/pizzaslice";
 
-export default configureStore({
+export  const store= configureStore({
   reducer: { filter, cart,pizza
    },
 });
+
+
+export type RootState = ReturnType<typeof store.getState>

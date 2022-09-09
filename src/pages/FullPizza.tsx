@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
-import IPizza from "../@types/types";
+import { IPizza } from "../redux/slices/pizzaslice";
+
 
 
 

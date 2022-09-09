@@ -11,6 +11,7 @@ type IList ={
 
 
 
+
 const list:IList[] = [
   { name: "популярность", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
@@ -29,8 +30,9 @@ const Sort = () => {
   };
 
   React.useEffect(() => {
-    const handleClickOutSide = (event:any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutSide = (event:MouseEvent) => {
+      
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpenCategories(false);
       }
     }

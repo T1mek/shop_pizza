@@ -2,7 +2,7 @@ import React from "react";
 
 
 type ICategories={
-  setActiveIndex:any,
+  setActiveIndex:(i:number)=> void,
   activeIndex: number,
 }
 

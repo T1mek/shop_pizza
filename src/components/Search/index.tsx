@@ -1,33 +1,28 @@
 import React from "react";
 import style from "./Search.module.scss";
 import lupa from "../../assets/img/search.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
 
-
-
-
-
-const Search:React.FC = () => {
+const Search: React.FC = () => {
   const [value, setValue] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch() 
+  const dispatch = useDispatch();
 
   const onClickClear = () => {
-    dispatch(setSearchValue(''));
-    setValue("")
+    dispatch(setSearchValue(""));
+    setValue("");
     inputRef.current?.focus();
   };
 
-  
   const updateSearchValue = React.useCallback(
-    debounce((str:string) => {
-      dispatch(setSearchValue(str))
-    },250),
-    [],
+    debounce((str: string) => {
+      dispatch(setSearchValue(str));
+    }, 250),
+    []
   );
-  const onChangeInput = (e:any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   };
