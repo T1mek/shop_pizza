@@ -16,6 +16,7 @@ import {
 import { getPizza,pizzaAll } from "../redux/slices/pizzaslice";
 import { Link } from "react-router-dom";
 
+
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, searchValue,pageCount } = useSelector(selectSort);
@@ -53,7 +54,7 @@ const HomePage: React.FC = () => {
           activeIndex={categoryId}
           setActiveIndex={(id: number) => onClickCategory(id)}
         />
-        <Sort />
+        <Sort value={sort} />
       </div>
 
       <h2 className="content__title">Все пиццы</h2>

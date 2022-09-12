@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-type ISort = {
+ export type ISort = {
   name: string;
   sortProperty: "rating" | "price" | "title";
 };

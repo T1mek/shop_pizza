@@ -20,7 +20,7 @@ const CartItem: React.FC<ICartItem> = ({
     dispatch(
       addItem({
         id,
-      })
+      } as ICartItem )
     );
   };
   const onClickMinus = () => {

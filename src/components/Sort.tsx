@@ -1,30 +1,31 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setSort } from "../redux/slices/filterSlice";
+import { useDispatch } from "react-redux";
 
-import { selectSort } from "../redux/slices/filterSlice";
+import { setSort} from "../redux/slices/filterSlice";
 
-type IList ={
-  name:string,
-  sortProperty: string,
+
+
+import { ISort } from "../redux/slices/filterSlice";
+
+
+type SortProps = {
+  value : ISort
 }
 
 
-
-
-const list:IList[] = [
+const list:ISort[] = [
   { name: "популярность", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort = () => {
+const Sort:React.FC<SortProps> = ({value}) => {
   const [openCategories, setOpenCategories] = React.useState(false);
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
+  
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickSort = (obj:IList) => {
+  const onClickSort = (obj:ISort) => {
     dispatch(setSort(obj));
     setOpenCategories(false);
   };
@@ -64,7 +65,7 @@ const Sort = () => {
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setOpenCategories(!openCategories)}>
-          {sort.name}
+          {value.name}
         </span>
       </div>
       {openCategories && (
@@ -75,7 +76,7 @@ const Sort = () => {
                 key={i}
                 onClick={() => onClickSort(obj)}
                 className={
-                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                  value.sortProperty === obj.sortProperty ? "active" : ""
                 }
               >
                 {obj.name}

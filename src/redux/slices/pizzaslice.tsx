@@ -16,7 +16,7 @@ export  interface IPizza{
 
 
 interface IPizzaSlice {
-  items: [];
+  items: IPizza[];
   status: "loading" | " successful" | "error";
 }
 
