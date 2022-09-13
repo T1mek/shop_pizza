@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { addItem, ICartItem } from "../../redux/slices/cartSlice";
 import { selectCartById } from "../../redux/slices/cartSlice";
 import { IPizza } from "../../redux/slices/pizzaslice";
@@ -8,19 +9,19 @@ import { IPizza } from "../../redux/slices/pizzaslice";
 
 
 
-const PizzaBlock:React.FC<IPizza> = ({ imageUrl, price, title, id, sizes, types }) => {
+const PizzaBlock: React.FC<IPizza> = ({ imageUrl, price, title, id, sizes, types }) => {
   const typeNames = ["тонкое", "традиционные"];
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const cartItem = useSelector(selectCartById(id))
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
-const addedCount = cartItem ? cartItem.count : 0 
+  const addedCount = cartItem ? cartItem.count : 0
 
 
   const onClickAdd = () => {
-    const item:ICartItem = {
+    const item: ICartItem = {
       id,
       title,
       price,
@@ -35,8 +36,10 @@ const addedCount = cartItem ? cartItem.count : 0
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
+        <Link key={id} to={`/pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+        </Link>
         <div className="pizza-block__selector">
           <ul>
             {types.map((type, index) => (
@@ -45,7 +48,7 @@ const addedCount = cartItem ? cartItem.count : 0
                 className={activeType === index ? "active" : ""}
                 key={index}
               >
-                {typeNames[type]}{" "}
+                {typeNames[type]}
               </li>
             ))}
           </ul>
@@ -77,7 +80,7 @@ const addedCount = cartItem ? cartItem.count : 0
               />
             </svg>
             <span>Добавить</span>
-            { addedCount > 0 && <i> {addedCount}   </i>}
+            {addedCount > 0 && <i> {addedCount}   </i>}
           </button>
         </div>
       </div>

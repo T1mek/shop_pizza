@@ -1,13 +1,14 @@
 import React from "react";
 
 
-type ICategories={
-  setActiveIndex:(i:number)=> void,
+type ICategories = {
+  setActiveIndex: (i: number) => void,
   activeIndex: number,
 }
 
-const Categories:React.FC<ICategories> = ({setActiveIndex,activeIndex}) => {
-  
+
+const Categories: React.FC<ICategories> = ({ setActiveIndex, activeIndex }) => {
+
   const categories = [
     "Все",
     "Мясные",
@@ -21,9 +22,9 @@ const Categories:React.FC<ICategories> = ({setActiveIndex,activeIndex}) => {
   return (
     <div className="categories">
       <ul>
-      {categories.map((value, i) => (
+        {categories.map((value, i) => (
           <li key={i}
-            onClick={() =>  setActiveIndex(i)}
+            onClick={() => setActiveIndex(i)}
             className={activeIndex === i ? "active" : ""}
           >
             {value}

@@ -19,7 +19,7 @@ const list:ISort[] = [
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort:React.FC<SortProps> = ({value}) => {
+const Sort:React.FC<SortProps> = React.memo( ({value}) => {
   const [openCategories, setOpenCategories] = React.useState(false);
   const dispatch = useDispatch();
   
@@ -87,6 +87,6 @@ const Sort:React.FC<SortProps> = ({value}) => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

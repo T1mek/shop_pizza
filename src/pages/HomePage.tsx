@@ -13,17 +13,16 @@ import {
   selectSort,
 } from "../redux/slices/filterSlice";
 
-import { getPizza,pizzaAll } from "../redux/slices/pizzaslice";
-import { Link } from "react-router-dom";
+import { getPizza, pizzaAll } from "../redux/slices/pizzaslice";
 
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
-  const { categoryId, sort, searchValue,pageCount } = useSelector(selectSort);
-  
+  const { categoryId, sort, searchValue, pageCount } = useSelector(selectSort);
+
   const { items, status } = useSelector(pizzaAll);
 
-  const onClickCategory = (id: number) => {
+  const onClickCategory =(id: number) => {
     dispatch(setCategoryId(id));
   };
   const onClickPage = (number: number) => {
@@ -77,9 +76,9 @@ const HomePage: React.FC = () => {
               return false;
             })
             .map((obj: any) => (
-              <Link to={`/pizza/${obj.id}`} key={obj.id}>
-                <PizzaBlock {...obj} />
-              </Link>
+
+              <PizzaBlock key={obj.id} {...obj} />
+
             ))
         )}
       </div>

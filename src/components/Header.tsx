@@ -24,7 +24,7 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== '/basket' && <Search />}
         <div className="header__cart">
          {location.pathname !== '/basket' && (
           <Link to="/basket" className="button button--cart">
