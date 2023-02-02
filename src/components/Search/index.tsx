@@ -16,12 +16,12 @@ const Search: React.FC = () => {
     inputRef.current?.focus();
   };
 
-  const updateSearchValue = React.useCallback(
+  const updateSearchValue =
     debounce((str: string) => {
       dispatch(setSearchValue(str));
-    }, 250),
-    [] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+    }, 250)
+  
+  
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
