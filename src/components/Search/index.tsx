@@ -20,7 +20,7 @@ const Search: React.FC = () => {
     debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 250),
-    []
+    [dispatch]
   );
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
